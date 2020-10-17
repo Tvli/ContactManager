@@ -122,6 +122,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.delete(TABLE_CONTACTS, KEY_ID + "=?", new String[]{ String.valueOf(contact.getId()) });
         db.close();
     }
+    
+    //A method to check duplicacy of email
+    public int checkDuplicateNumber(String email){
+        SQLiteDatabase db=this.getReadableDatabase();
+        String check="SELECT * FROM "+TABLE_CONTACTS+" WHERE "+KEY_EMAIL+"="+ email;
+        Cursor cursor=db.rawQuery(check,null);
+        return cursor.getCount();
+        //returns 0 if no duplicate found
+    }
+    
 
 
 //
